@@ -2,13 +2,14 @@ import { ShopContext } from "../context/shopcontext";
 import { useContext, useEffect } from "react";
 import { initiateCheckout } from "../checkout/checkout";
 
+
 const Cart = () => {
   const contextData = useContext(ShopContext);
   useEffect(() => {
     contextData.store && contextData.store.length > 0;
   }, []);
   const total = contextData.store.reduce(
-    (total, item) => total + item.quantity * +`${item.price}`.replace("£",""),
+    (total, item) => total + item.quantity * +`${item.price}`.replace("£", ""),
     0
   );
   const tax = +(total * 0.05).toFixed(2);
@@ -19,6 +20,7 @@ const Cart = () => {
         return {
           price: "price_1IkMvRSDdLHKTVa52ERUjtaH",
           quantity: quantity,
+          
         };
       }),
     });
@@ -82,8 +84,9 @@ const Cart = () => {
                       </td>
                       <td className="text-right">
                         <span className="text-sm lg:text-base font-medium">
-                          ${+product.quantity *
-                          +`${product.price}`.replace("£", "")}
+                          $
+                          {+product.quantity *
+                            +`${product.price}`.replace("£", "")}
                         </span>
                       </td>
                     </tr>
@@ -142,7 +145,9 @@ const Cart = () => {
                   </div>
                 </div>
                 <button
-                  onClick={() => checkout()}
+                  onClick={() => {
+                    checkout();
+                  }}
                   className="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
                 >
                   <svg

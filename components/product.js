@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Link from "next/link";
-import { ShopContext } from "../context/shopcontext";
+import { query, ShopContext } from "../context/shopcontext";
 
 const Products = ({ data }) => {
   const contextData = useContext(ShopContext);
@@ -55,10 +55,5 @@ const Products = ({ data }) => {
     </div>
   );
 };
-export async function getServerSideProps() {
-  const result = await contextData.client.query(query);
-  return {
-    props: result.data,
-  };
-}
+
 export default Products;

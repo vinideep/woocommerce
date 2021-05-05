@@ -43,7 +43,7 @@ export const ShopContext = React.createContext();
 const ShopContextProvider = (props) => {
   const [store, setStore] = useState([]);
   const [value, setValue] = useState(0);
-  const { data, error, response } = useQuery(query)
+  const { data, error, response, loading } = useQuery(query)
   // axios.interceptors.request.use(function (config) {
   //   config.headers;
   //   const { headers = {} } = config || {};

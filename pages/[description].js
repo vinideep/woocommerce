@@ -14,17 +14,16 @@ const Description = () => {
   const { data, error, response, loading } = useQuery(contextData.query);
   console.log(data);
   useEffect(() => {
-    if (loading && response) {
+    if (data) {
       const product =
         data &&
         data.products.nodes.find(
           ({ productId }) => productId === +router.query.description
         );
-      setProduct(...product);
+      setProduct(product);
+      setImage(product.image.sourceUrl);
     }
-    console.log(product);
-    product && product.image ? setImage(product.image.sourceUrl) : "loading";
-  }, []);
+  }, [data]);
 
   return (
     <div>
@@ -63,18 +62,30 @@ const Description = () => {
           </div>
           <div className="lg:block m-auto flex items-center z-0 bg-white shadow-xl">
             <ul className="flex items-center justify-center lg:block">
-              {product.galleryImages.nodes.map((image, index) => {
+              <li>
+                <img
+                  onMouseEnter={(e) => {
+                    setImage(e.target.src);
+                  }}
+                  className="lg:w-20 w-14 md:w-24 m-2 shadow-md cursor-pointer sm:w-24 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl"
+                  src={product.image.sourceUrl}
+                  alt="item"
+                />
+              </li>
+              {product.galleryImages.nodes.map((images, index) => {
                 return (
-                  <li key={index}>
-                    <img
-                      onMouseEnter={(e) => {
-                        setImage(e.target.src);
-                      }}
-                      className="lg:w-20 w-14 md:w-24 m-2 shadow-md cursor-pointer sm:w-24 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl"
-                      src={image.sourceUrl}
-                      alt="item"
-                    />
-                  </li>
+                  <React.Fragment key={index}>
+                    <li>
+                      <img
+                        onMouseEnter={(e) => {
+                          setImage(e.target.src);
+                        }}
+                        className="lg:w-20 w-14 md:w-24 m-2 shadow-md cursor-pointer sm:w-24 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:shadow-xl"
+                        src={images.sourceUrl}
+                        alt="item"
+                      />
+                    </li>
+                  </React.Fragment>
                 );
               })}
             </ul>
