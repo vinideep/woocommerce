@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "start-api": "cd Api && flask run --no-debugger",
     "build": "next build",
     "start": "next start"
   },
+  
   "dependencies": {
     "@apollo/client": "^3.3.15",
     "@stripe/stripe-js": "^1.13.2",
@@ -23,5 +25,6 @@
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.35",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.1.0"
-  }
+  },
+  "proxy": "http://localhost/5000"
 }
